@@ -2,10 +2,10 @@
 
 from knapsack import KnapsackInstance, KnapsackSolver
 
-class BruteforceKnapsackSolver(KnapsackSolver):
+class GreedyKnapsackSolver(KnapsackSolver):
     """
     >>> kp = KnapsackInstance(W=[13, 13, 13, 10, 24, 11], V=[2600, 2600, 2600, 500, 4500, 960], C=50)
-    >>> bfs = BruteforceKnapsackSolver(kp)
+    >>> bfs = GreedyKnapsackSolver(kp)
     >>> Xopt = bfs.solve()
     >>> Xopt in [(0, 1, 1, 0, 1, 0), (1, 0, 1, 0, 1, 0), (1, 1, 0, 0, 1, 0)]
     True
@@ -23,14 +23,14 @@ class BruteforceKnapsackSolver(KnapsackSolver):
 
     
     def solve(self) -> tuple[int, ...]:
-        # solve by brute force
-        def possibilities(n:int) -> list[list[int]]:
-            if n == 0:
-                return [[]]
+        # solve by greedy method
+        ratio = list(map(lambda weight, value: value/weight, self._inst.W, self._inst.V))
+        sorted_index_ration = sorted(list(enumerate(ratio)), key = lambda x: x[1], reverse=True)
+        C_cap = 0
+        for i, _ in sorted_index_ration:
+            C_cap += self._inst.W[i]
+            if C_cap > 50:
+                break
             else:
-                return [[value] + rest for value in [0,1] for rest in possibilities(n-1)]
-        for possibility in possibilities(self._inst.size):
-            if self.weight(possibility) <= self._inst.C and self.value(possibility) > self.value(self._X):
-                sol = self._X  = possibility
-        return tuple(sol)
-    
+                self._X[i] = 1
+        return tuple(self._X)

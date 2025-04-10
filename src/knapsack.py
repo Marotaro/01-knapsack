@@ -16,15 +16,19 @@ class KnapsackInstance:
     @staticmethod
     def from_string(string: str) -> "KnapsackInstance":
         """ """
-        W: list[int] = []
-        V: list[int] = []
-        C: int = 0
+        data = [list(map(int, line.strip().split(" "))) for line in string.strip().split("\n")]
+
+        W: list[int] = [obj[0] for obj in data[1:]]
+        V: list[int] = [obj[1] for obj in data[1:]]
+        C: int = data[0][1]
 
         return KnapsackInstance(W, V, C)
 
     @staticmethod
     def load_instance_data(instance_name: str) -> str:
-        return ''
+        with open(instance_name, "r") as f:
+            text = f.read()
+        return  text
 
     @staticmethod
     def test_instance() -> str:
@@ -91,3 +95,6 @@ try:
     doctest.testmod()
 except:
     print("Unable to load doctests")
+
+
+

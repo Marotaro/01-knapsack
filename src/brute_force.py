@@ -20,11 +20,18 @@ class BruteforceKnapsackSolver(KnapsackSolver):
     
     def __init__(self, instance) -> None:
         # TODO: write the constructor by calling the parent class constructor
-        ...
+        super().__init__(instance)
 
     
     def solve(self) -> tuple[int, ...]:
         # solve by brute force
-        sol = (0,)
-        
-        return sol
+        def possibilities(n:int) -> list[list[int]]:
+            if n == 0:
+                return [[]]
+            else:
+                return [[value] + rest for value in [0,1] for rest in possibilities(n-1)]
+        for possibility in possibilities(self._inst.size):
+            if self.weight(possibility) <= self._inst.C and self.value(possibility) > self.value(self._X):
+                sol = self._X  = possibility
+        return tuple(sol)
+    

@@ -1,4 +1,4 @@
-# Exercice https://courses.21-learning.com/runestone/books/published/oci-2224-donc/classic-problems/01-knapsack-short.html#force-brute
+# Exercice https://courses.21-learning.com/runestone/books/published/oci-2325/classic-problems/01-knapsack-short.html#id19
 
 from knapsack import KnapsackInstance, KnapsackSolver
 
@@ -33,4 +33,3 @@ class BruteforceKnapsackSolver(KnapsackSolver):
             if self.weight(possibility) <= self._inst.C and self.value(possibility) > self.value(self._X):
                 sol = self._X  = possibility
         return tuple(sol)
-    

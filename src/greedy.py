@@ -1,4 +1,4 @@
-# Exercice https://courses.21-learning.com/runestone/books/published/oci-2224-donc/classic-problems/01-knapsack-short.html#force-brute
+# Exercice https://courses.21-learning.com/runestone/books/published/oci-2325/classic-problems/01-knapsack-short.html#id20
 
 from knapsack import KnapsackInstance, KnapsackSolver
 
@@ -24,12 +24,12 @@ class GreedyKnapsackSolver(KnapsackSolver):
     
     def solve(self) -> tuple[int, ...]:
         # solve by greedy method
-        ratio = list(map(lambda weight, value: value/weight, self._inst.W, self._inst.V))
+        ratio = list(map(lambda weight, value: value/weight if weight != 0 else 10^100000000000000000, self._inst.W, self._inst.V))
         sorted_index_ration = sorted(list(enumerate(ratio)), key = lambda x: x[1], reverse=True)
         C_cap = 0
         for i, _ in sorted_index_ration:
             C_cap += self._inst.W[i]
-            if C_cap > 50:
+            if C_cap > self._inst.C:
                 break
             else:
                 self._X[i] = 1

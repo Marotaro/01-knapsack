@@ -21,7 +21,6 @@ class KnapsackInstance:
         W: list[int] = [obj[0] for obj in data[1:]]
         V: list[int] = [obj[1] for obj in data[1:]]
         C: int = data[0][1]
-
         return KnapsackInstance(W, V, C)
 
     @staticmethod

@@ -24,7 +24,7 @@ class GreedyKnapsackSolver(KnapsackSolver):
     
     def solve(self) -> tuple[int, ...]:
         # solve by greedy method
-        ratio = list(map(lambda weight, value: value/weight if weight != 0 else 10^100000000000000000, self._inst.W, self._inst.V))
+        ratio = list(map(lambda weight, value: value/weight if weight != 0 else float('inf'), self._inst.W, self._inst.V))
         sorted_index_ration = sorted(list(enumerate(ratio)), key = lambda x: x[1], reverse=True)
         C_cap = 0
         for i, _ in sorted_index_ration:
